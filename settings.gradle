@@ -1,0 +1,22 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+pluginManagement {
+    plugins {
+        id 'org.springframework.boot' version "${springBootVersion}"
+        id 'io.spring.dependency-management' version "${springDependencyVersion}"
+        id 'com.google.cloud.tools.jib' version "${jibVersion}"
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url '.m2/local/'
+        }
+    }
+}
+
+rootProject.name = 'app-multimodule-example'
