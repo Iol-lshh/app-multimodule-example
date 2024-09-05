@@ -1,0 +1,26 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'com.google.cloud.tools.jib'
+}
+
+apply from: "$rootDir/gradle/jib.gradle"
+
+dependencies {
+    implementation project(":modules:clock")
+    implementation project(":modules:lock")
+    implementation project(":modules:trace")
+    implementation project(":modules:money")
+    implementation project(":modules:task")
+    implementation project(":modules:client")
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+    implementation 'org.javamoney:moneta:1.4.1'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}

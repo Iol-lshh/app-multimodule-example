@@ -1,0 +1,40 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+pluginManagement {
+    plugins {
+        id 'org.springframework.boot' version "${springBootVersion}"
+        id 'io.spring.dependency-management' version "${springDependencyVersion}"
+        id 'com.google.cloud.tools.jib' version "${jibVersion}"
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url '.m2/local/'
+        }
+    }
+}
+
+rootProject.name = 'app-multimodule-example'
+include 'modules'
+include 'modules:clock'
+findProject(':modules:clock')?.name = 'clock'
+include 'modules:trace'
+findProject(':modules:trace')?.name = 'trace'
+include 'modules:lock'
+findProject(':modules:lock')?.name = 'lock'
+include 'modules:money'
+findProject(':modules:money')?.name = 'money'
+include 'modules:client'
+findProject(':modules:client')?.name = 'client'
+
+include 'payment-service'
+findProject(':payment-service')?.name = 'payment-service'
+include 'payment-bff'
+include 'modules:task'
+findProject(':modules:task')?.name = 'task'
+
