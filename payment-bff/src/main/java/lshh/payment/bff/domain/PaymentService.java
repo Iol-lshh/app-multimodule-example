@@ -24,8 +24,8 @@ public class PaymentService {
 
     public Result pay(PayCommand command) {
         String traceId = TraceThreadHelper.getTraceId();
-        ApiKey apiKey = ApiKeyThreadHelper.getApiKey();
         validator.validate(command);
+        ApiKey apiKey = ApiKeyThreadHelper.getApiKey();
         Payment payment = command.toEntity(apiKey);
         PaymentStateView requestResult = serviceClient.request(apiKey.sellerId(), payment);
         validator.validate(requestResult);

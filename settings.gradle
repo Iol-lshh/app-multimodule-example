@@ -31,10 +31,11 @@ include 'modules:money'
 findProject(':modules:money')?.name = 'money'
 include 'modules:client'
 findProject(':modules:client')?.name = 'client'
+include 'modules:task'
+findProject(':modules:task')?.name = 'task'
 
 include 'payment-service'
 findProject(':payment-service')?.name = 'payment-service'
 include 'payment-bff'
-include 'modules:task'
-findProject(':modules:task')?.name = 'task'
+findProject(':payment-bff')?.name = 'payment-bff'
 

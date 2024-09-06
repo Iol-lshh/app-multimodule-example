@@ -1,20 +1,18 @@
 package lshh.payment.service.domain;
 
-import lshh.payment.service.TestPaymentApplication;
+import lshh.payment.service.TestPaymentServiceApplication;
 import lshh.payment.service.domain.dto.*;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import lshh.modules.client.payment.service.PaymentState;
 
 import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ContextConfiguration(classes = TestPaymentApplication.class)
-@SpringBootTest
+@SpringBootTest(classes = TestPaymentServiceApplication.class)
 public class PaymentServiceTest {
 
     @Autowired

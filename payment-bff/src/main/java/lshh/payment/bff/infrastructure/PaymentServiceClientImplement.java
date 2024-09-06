@@ -1,6 +1,8 @@
 package lshh.payment.bff.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import lshh.modules.client.common.response.Response;
+import lshh.modules.client.common.response.ResponseType;
 import lshh.modules.client.payment.service.PaymentServiceFeignClient;
 import lshh.modules.client.payment.service.dto.PaymentRequestCommand;
 import lshh.modules.client.payment.service.dto.PaymentStateView;
@@ -23,7 +25,11 @@ public class PaymentServiceClientImplement implements PaymentServiceClient {
                 Instant.now().plusSeconds(60)
         );
 
-        return feignClient.request(command);
+        Response response = feignClient.request(command);
+        if(response.resultCode() != ResponseType.OK.resultCode()){
+            throw new RuntimeException("Payment Request Failed");
+        }
+        return (PaymentStateView) response.data();
     }
 
     @Override
