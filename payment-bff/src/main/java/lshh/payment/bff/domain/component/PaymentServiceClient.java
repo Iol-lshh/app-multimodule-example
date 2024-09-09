@@ -3,10 +3,12 @@ package lshh.payment.bff.domain.component;
 import lshh.modules.client.payment.service.dto.PaymentStateView;
 import lshh.payment.bff.domain.entity.Payment;
 
+import java.util.UUID;
+
 public interface PaymentServiceClient {
-    PaymentStateView request(String sellerId, Payment payment);
+    PaymentStateView request(Payment payment);
 
-    void reject(Payment payment);
+    void reject(UUID payment);
 
-    void approve(Payment payment);
+    void approve(UUID paymentId);
 }
