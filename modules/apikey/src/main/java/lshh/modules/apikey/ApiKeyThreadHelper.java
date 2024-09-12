@@ -1,4 +1,4 @@
-package lshh.payment.bff.common.lib.apikey;
+package lshh.modules.apikey;
 
 public class ApiKeyThreadHelper {
     private static final ThreadLocal<ApiKey> API_KEY = new ThreadLocal<>();

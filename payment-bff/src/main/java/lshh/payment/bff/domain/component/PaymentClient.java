@@ -5,7 +5,7 @@ import lshh.payment.bff.domain.entity.Payment;
 
 import java.util.UUID;
 
-public interface PaymentServiceClient {
+public interface PaymentClient {
     PaymentStateView request(Payment payment);
 
     void reject(UUID payment);

@@ -6,12 +6,12 @@ plugins {
 apply from: "$rootDir/gradle/jib.gradle"
 
 dependencies {
-    implementation project(":modules:clock")
-    implementation project(":modules:lock")
-    implementation project(":modules:trace")
-    implementation project(":modules:money")
-    implementation project(":modules:task")
-    implementation project(":modules:client")
+    implementation project(":modules:module-clock")
+    implementation project(":modules:module-lock")
+    implementation project(":modules:module-trace")
+    implementation project(":modules:module-money")
+    implementation project(":modules:module-task")
+    implementation project(":modules:module-client")
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lshh.modules.client.payment.service.dto.PaymentStateView;
 import lshh.modules.trace.TraceThreadHelper;
-import lshh.payment.bff.domain.component.PaymentServiceClient;
+import lshh.payment.bff.domain.component.PaymentClient;
 import lshh.payment.bff.domain.component.PaymentValidator;
 import lshh.payment.bff.domain.dto.PayCommand;
 import lshh.payment.bff.domain.dto.PayResult;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Component
 public class PaymentValidatorImplement implements PaymentValidator {
-    private final PaymentServiceClient serviceClient;
+    private final PaymentClient serviceClient;
 
     @Override
     public void validate(PayCommand command) {

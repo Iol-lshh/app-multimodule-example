@@ -2,24 +2,27 @@ package lshh.payment.bff.infrastructure;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lshh.modules.apikey.ApiKeyThreadHelper;
 import lshh.modules.client.common.response.Response;
+import lshh.modules.client.common.response.ResponseConvertException;
 import lshh.modules.client.common.response.ResponseType;
 import lshh.modules.client.payment.service.PaymentServiceFeignClient;
+import lshh.modules.client.payment.service.PaymentState;
 import lshh.modules.client.payment.service.dto.PaymentRequestCommand;
 import lshh.modules.client.payment.service.dto.PaymentStateView;
 import lshh.modules.trace.TraceThreadHelper;
-import lshh.payment.bff.common.lib.apikey.ApiKeyThreadHelper;
-import lshh.payment.bff.domain.component.PaymentServiceClient;
+import lshh.payment.bff.domain.component.PaymentClient;
 import lshh.payment.bff.domain.entity.Payment;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class PaymentServiceClientImplement implements PaymentServiceClient {
+public class PaymentClientImplement implements PaymentClient {
     private final PaymentServiceFeignClient feignClient;
 
     @Override
@@ -35,7 +38,18 @@ public class PaymentServiceClientImplement implements PaymentServiceClient {
         if(response.resultCode() != ResponseType.OK.resultCode()){
             throw new RuntimeException("Payment Request Failed");
         }
-        return (PaymentStateView) response.data();
+        var result = response.data();
+        if(result instanceof HashMap<?,?>){
+            var data = (HashMap<String, Object>) result;
+            return new PaymentStateView(
+                    UUID.fromString(data.get("paymentId").toString()),
+                    data.get("sellerId").toString(),
+                    PaymentState.valueOf(data.get("state").toString()),
+                    Long.parseLong(data.get("amount").toString())
+            );
+        }
+
+        throw new ResponseConvertException("Payment Request Failed");
     }
 
     @Override
